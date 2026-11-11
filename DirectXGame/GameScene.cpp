@@ -237,7 +237,7 @@ void GameScene::Initialize(StageManager* stageDataManager)
 	{
 		lightGroup_->SetSpotLightActive(i, false);
 	}
-	// 【面の陰影】平行光源。方向で明るい面が変わり、色の値で光の強さを調整できる。
+	// 平行光源。方向で明るい面が変わり、色の値で光の強さを調整できる。
 	lightGroup_->SetDirLightActive(0, true);
 	lightGroup_->SetDirLightDir(0, {-0.35f, 0.75f, -0.56f});
 	lightGroup_->SetDirLightColor(0, {0.68f, 0.69f, 0.73f});

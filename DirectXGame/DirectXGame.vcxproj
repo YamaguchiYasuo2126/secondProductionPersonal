@@ -168,6 +168,7 @@
     <ClCompile Include="BaseGimmick.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="TopDownScene.cpp" />
     <ClCompile Include="CheckpointGate.cpp" />
     <ClCompile Include="CheckpointTrigger.cpp" />
     <ClCompile Include="ClearScene.cpp" />
@@ -302,6 +303,7 @@
     <ClInclude Include="BaseGimmick.h" />
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="CameraController.h" />
+    <ClInclude Include="TopDownScene.h" />
     <ClInclude Include="CheckpointGate.h" />
     <ClInclude Include="CheckpointTrigger.h" />
     <ClInclude Include="ClearScene.h" />

@@ -15,6 +15,10 @@ void CameraController::Initialize()
 	// カメラの設定
 	camera_.farZ = 6000.0f;
 
+	camera_.rotation_.x = std::atan2(20.0f, 15.0f); // 約53度
+	camera_.rotation_.y = 0.0f;
+	camera_.rotation_.z = 0.0f;
+
 	// カメラの初期化
 	camera_.Initialize();
 	
@@ -109,10 +113,12 @@ void CameraController::StartShake(float amplitude, float durationSeconds)
 	{
 		return;
 	}
+
 	if (shakeRemainingSeconds_ > 0.0f && amplitude < shakeAmplitude_)
 	{
 		return;
 	}
+
 	shakeAmplitude_ = amplitude;
 	shakeDurationSeconds_ = durationSeconds;
 	shakeRemainingSeconds_ = durationSeconds;
