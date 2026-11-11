@@ -1,0 +1,252 @@
+#pragma once
+#include "KamataEngine.h"
+#include <vector>
+#include "Player.h"
+#include "BaseEnemy.h"
+#include "BaseEffect.h"
+#include "Skydome.h"
+#include "MapChipField.h"
+#include "CameraController.h"
+#include "AABB.h"
+#include "DeathParticles.h"
+#include "Fade.h"
+#include "BaseGimmick.h"
+#include "SwitchLinkState.h"
+#include "TiledRoom.h"
+#include "WorldProgress.h"
+#include "RushAimScreenEffect.h"
+
+#include <string>
+#include <cstdint>
+
+class StageManager;
+class TriangleTraceGimmick;
+
+class GameScene {
+
+public:
+	// メンバ変数
+	// プレイヤー
+	Player* player_ = nullptr;
+
+	// 敵
+	std::list<BaseEnemy*> enemies_;
+
+	// デスパーティクル
+	DeathParticles* deathParticles_ = nullptr;
+
+	// ヒットエフェクト
+	std::list<BaseEffect*> effects_;
+
+	// 水流・足場などのステージギミック
+	std::list<BaseGimmick*> gimmicks_;
+
+	// 天球
+	Skydome* skydome_ = nullptr;
+
+	// カメラコントローラ
+	CameraController* cameraController_ = nullptr;
+	
+	// エフェクトを生成
+	void CreateHitEffect(const KamataEngine::Vector3& position);
+	void CreateGuardEffect(const KamataEngine::Vector3& position);
+
+	GameScene();
+
+	~GameScene();
+	
+public:
+
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	void Initialize(StageManager* stageDataManager);
+
+	void Update();
+
+	void Draw();
+
+	// 終了フラグのgetter
+	bool IsFinished() const { return finished_; }
+	
+	// リロード要求フラグのgetter
+	bool IsReloadRequested() const { return reloadRequested_; }
+
+	bool IsCleared() const { return isCleared_; }
+
+private:
+
+	// 終了フラグ
+	bool finished_ = false;
+
+	// ゲームのフェーズ (型)
+	enum class Phase
+	{
+		kFadeIn,  // フェードイン
+		kPlay,	  // ゲームプレイ
+		kDeath,   // デス演出
+		kGameOver, // ゲームオーバー時の選択
+		kStageClear, // ステージクリア演出
+		kFadeOut, // フェードアウト
+	};
+
+	// ゲームの現在フェーズ
+	Phase phase_;
+	
+	// フェードにかける時間
+	static inline const float kFadeDuration = 1.0f;
+
+	// フェード
+	Fade* fade_ = nullptr;
+
+	// 3Dモデルデータ
+	// プレイヤーの3Dモデルデータ
+	KamataEngine::Model* modelPlayer_ = nullptr;
+	KamataEngine::Model* modelPlayerFlash_ = nullptr;
+	
+	// プレイヤーの攻撃エフェクトの3Dモデルデータ
+
+	// 敵に対してのヒットエフェクトの3Dモデルデータ
+	KamataEngine::Model* modelHitEffect_ = nullptr;
+
+	// 盾持ちの敵に対してのガードエフェクトの3Dモデルデータ
+	KamataEngine::Model* modelGuardEffect_ = nullptr;
+
+	// 通常の敵の3Dモデルデータ
+	KamataEngine::Model* modelWalkEnemy_ = nullptr;
+
+	// 盾持ちの敵の3Dモデルデータ
+	KamataEngine::Model* modelShieldEnemy_ = nullptr;
+
+	// Stage 3の飛行敵の3Dモデルデータ
+	KamataEngine::Model* modelFlyingEnemy_ = nullptr;
+
+	// ブロックの3Dモデルデータ
+	KamataEngine::Model* modelBlock_ = nullptr;
+	KamataEngine::Model* modelCheckpoint_ = nullptr;
+	KamataEngine::Model* modelCheckpointJewel_ = nullptr;
+	KamataEngine::Model* modelGoal_ = nullptr;
+	KamataEngine::Model* modelTriangleEdge_ = nullptr;
+	KamataEngine::Model* modelTriangleFill_ = nullptr;
+	uint32_t triangleWhiteTexture_ = 0;
+
+	// ギミックごとの3Dモデルデータ
+	KamataEngine::Model* modelFountain_ = nullptr;
+	KamataEngine::Model* modelMovingPlatform_ = nullptr;
+	KamataEngine::Model* modelWaterWheelShaft_ = nullptr;
+	KamataEngine::Model* modelUpdraft_ = nullptr;
+	KamataEngine::Model* modelLotusLeaf_ = nullptr;
+	KamataEngine::Model* modelFallingRock_ = nullptr;
+	KamataEngine::Model* modelVine_ = nullptr;
+	KamataEngine::Model* modelOreSwitch_ = nullptr;
+	KamataEngine::Model* modelStoneBridge_ = nullptr;
+	KamataEngine::Model* modelVanishingCloud_ = nullptr;
+	KamataEngine::Model* modelThunderCloud_ = nullptr;
+	KamataEngine::Model* modelLightning_ = nullptr;
+	KamataEngine::Model* modelRingBoxEffect_ = nullptr;
+	KamataEngine::Model* modelRingBoardEffect_ = nullptr;
+	KamataEngine::LightGroup* lightGroup_ = nullptr;
+
+	// デスパーティクルの3Dモデルデータ
+	KamataEngine::Model* modelDeathParticles_ = nullptr;
+
+	// 天球の3Dモデルデータ
+	KamataEngine::Model* modelSkydome_ = nullptr;
+
+	KamataEngine::Sprite* jumpDirectionCursor_ = nullptr;
+	KamataEngine::Sprite* hudGuideSprite_ = nullptr;
+	std::vector<KamataEngine::Sprite*> hpIndicators_;
+
+	// ゲームオーバーの選択画面
+	KamataEngine::Sprite* gameOverOverlay_ = nullptr;
+	KamataEngine::Sprite* retryChoice_ = nullptr;
+	KamataEngine::Sprite* titleChoice_ = nullptr;
+	KamataEngine::Sprite* gameOverSelector_ = nullptr;
+	bool isRetrySelected_ = true;
+
+	// ステージクリア時に表示する演出用スプライト
+	KamataEngine::Sprite* stageClearOverlay_ = nullptr;
+	KamataEngine::Sprite* stageClearBanner_ = nullptr;
+	float stageClearTimer_ = 0.0f;
+	static inline const float kStageClearDuration = 90.0f;
+	static inline const float kRushAimTimeScale = 0.2f;
+	// 画面演出の切り替え時間はゲーム内時間の減速に影響されない。
+	static inline const float kRushAimEffectFadeIn = 0.08f;
+	static inline const float kRushAimEffectFadeOut = 0.12f;
+	RushAimScreenEffect rushAimScreenEffect_;
+	bool rushAimScreenEffectReady_ = false;
+	float rushAimEffectStrength_ = 0.0f;
+	float rushAimEffectElapsed_ = 0.0f;
+	KamataEngine::Vector2 rushAimCenterUv_{0.5f, 0.5f};
+
+	// ワールドトランスフォーム
+	KamataEngine::WorldTransform worldTransform_;
+	KamataEngine::WorldTransform goalWorldTransform_;
+	KamataEngine::ObjectColor goalColor_;
+	float goalPulseSeconds_ = 0.0f;
+
+	// 1マスごとのブロック描画用トランスフォーム
+	std::vector<KamataEngine::WorldTransform*> blockTransforms_;
+
+	// デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
+
+	KamataEngine::DebugCamera* debugCamera_ = nullptr;
+
+	// マップチップフィールド
+	MapChipField* mapChipField_ = nullptr;
+
+	// Tiledの部屋と、部屋をまたいで保持する進行状態
+	TiledRoomData currentRoom_;
+	WorldProgress worldProgress_;
+	std::string currentRoomPath_;
+	std::string tiledRoomLoadError_;
+	bool isUsingTiledRooms_ = false;
+	std::vector<TriangleTraceGimmick*> triangleTraces_;
+	// 部屋へ入った直後のRoomExitから離れるまで、次の部屋移動を禁止する。
+	bool isRoomExitArmed_ = true;
+	
+	void GenerateFieldObjects();
+	void BuildBlockTransforms();
+	void ClearRoomObjects();
+	bool LoadTiledRoom(const std::string& roomPath, const std::string& spawnId);
+	void ConfigureCameraForCurrentMap();
+	void UpdateGimmicksAndFallingRocks();
+	void UpdateCameraShakeEvents();
+	void UpdateLightGroup();
+	void CheckRoomTransitions();
+	void StartStageClear();
+	bool IsVisible(const AABB& bounds, float margin = 2.0f) const;
+
+	// 敵生成用の関数を追加
+	void GenerateEnemy(uint32_t xIndex, uint32_t yIndex, uint8_t subID);
+	void GenerateEnemyAtPosition(const KamataEngine::Vector3& position, const std::string& enemyType);
+	void GenerateGimmick(uint32_t xIndex, uint32_t yIndex, uint8_t subID);
+	void GenerateGimmickAtPosition(const KamataEngine::Vector3& position, GimmickType type,
+		const std::string& linkId = "legacy");
+	void GenerateCheckpoint(uint32_t xIndex, uint32_t yIndex, uint8_t subID);
+
+	// 全ての当たり判定を行う
+	void CheckAllCollisions();
+
+	// フェーズの切り替え
+	void ChangePhase();
+	void DrawHud();
+	
+	// リロード要求フラグ
+	bool reloadRequested_ = false;
+	uint64_t lastDamageSequence_ = 0;
+	uint64_t lastRushSequence_ = 0;
+	uint64_t lastRingPickupSequence_ = 0;
+
+	// ステージマネージャ用の参照用のポインタ
+	StageManager* stageManager_ = nullptr;
+
+	bool isCleared_ = false;
+	SwitchLinkState switchLinkState_;
+
+	// 最後に上面へ着地したチェックポイント。未到達時はP0の初期地点。
+	KamataEngine::Vector3 respawnPosition_{};
+	int32_t activatedCheckpointIndex_ = -1;
+	
+};
