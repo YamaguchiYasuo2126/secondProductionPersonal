@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TitleScene.h"
 #include "ClearScene.h"
+#include "TopDownScene.h"
 #include "KamataEngine.h"
 #include "StageManager.h"
 #include "SoundManager.h"
@@ -11,6 +12,7 @@
 #include <fstream>
 #include <limits>
 #include <sstream>
+#include <string_view>
 
 namespace
 {
@@ -24,7 +26,7 @@ enum class BgmType : uint32_t
 	kCount,
 };
 
-// Windows.h の max マクロと衝突しないよう、関数名を括弧で囲む。
+// maxマクロと衝突しないよう、関数名を括弧で囲む。
 constexpr uint32_t kInvalidVoiceHandle = (std::numeric_limits<uint32_t>::max)();
 constexpr float kBgmVolume = 0.35f;
 
@@ -96,6 +98,7 @@ void PlayCurrentStageBgm(int32_t stageIndex)
 ClearScene* clearScene = nullptr;
 GameScene* gameScene = nullptr;
 TitleScene* titleScene = nullptr;
+TopDownScene* topDownScene = nullptr;
 StageManager* stageManager = nullptr;
 
 // シーン
@@ -107,6 +110,7 @@ enum class Scene
 	kTitle,
 	kGame,
 	kClear,
+	kTopDown,
 };
 
 // 現在シーン
@@ -181,6 +185,8 @@ void ChangeScene()
 			PlayBgm(BgmType::kTitle);
 		}
 		break;
+	case Scene::kTopDown:
+		break;
 	}
 }
 
@@ -199,6 +205,9 @@ void UpdateScene()
 	case Scene::kClear:
 		clearScene->Update();
 		break;
+	case Scene::kTopDown:
+		topDownScene->Update();
+		break;
 	}
 }
 
@@ -216,6 +225,9 @@ void DrawScene()
 		break;
 	case Scene::kClear:
 		clearScene->Draw();
+		break;
+	case Scene::kTopDown:
+		topDownScene->Draw();
 		break;
 	}
 }
@@ -253,12 +265,12 @@ void LoadDebugSettings()
 }
 
 // Windowsアプリでのエントリーポイント(main関数)
-int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
+int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR commandLine, _In_ int) {
 
 	using namespace KamataEngine;
 
 	// エンジンの初期化
-	KamataEngine::Initialize(L"カエルカケル");
+	KamataEngine::Initialize(L"斜め見下ろしアクション試作");
 	GameTime::Initialize();
 
 	// DirectXCommonインスタンスの取得
@@ -276,6 +288,15 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	// 使用する全SEを一度読み込む。
 	SoundManager::GetInstance()->Initialize();
 
+	// 通常起動は見下ろし操作の試作。--legacy で従来のゲームを起動できる。
+	if (std::string_view(commandLine).find("--legacy") == std::string_view::npos)
+	{
+		scene = Scene::kTopDown;
+		topDownScene = new TopDownScene;
+		topDownScene->Initialize();
+	}
+	else
+	{
 	// 最初のシーンの初期化
 #ifdef _DEBUG
 	// デバッグ設定を読み込んで初期ステージを上書き設定する
@@ -293,6 +314,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	titleScene->Initialize();
 	PlayBgm(BgmType::kTitle);
 #endif
+	}
 
 	// メインループ
 	while (true) {
@@ -335,6 +357,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	delete titleScene;
 	delete gameScene;
 	delete clearScene;
+	delete topDownScene;
 
 	// クラスインスタンスの解放
 	delete stageManager;
@@ -343,6 +366,7 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	titleScene = nullptr;
 	gameScene = nullptr;
 	clearScene = nullptr;
+	topDownScene = nullptr;
 
 	// エンジンを終了する前に、再生中のBGMを止める。
 	StopBgm();

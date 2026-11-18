@@ -146,6 +146,7 @@ public:
 		velocity_.y += velocity.y * deltaFrames;
 		velocity_.z += velocity.z * deltaFrames;
 	}
+
 	// 上昇気流内では進入時の縦速度に関係なく、一定速度で上昇する。
 	void ApplyUpdraft(float upwardSpeed)
 	{
@@ -280,11 +281,13 @@ private:
 		float size = 0.0f;
 		bool board = false;
 	};
+
 	struct RushAfterimage {
 		KamataEngine::WorldTransform transform;
 		KamataEngine::ObjectColor color;
 		float remainingSeconds = 0.0f;
 	};
+
 	std::array<RushGrain, 24> rushGrains_{};
 	std::array<RushAfterimage, 8> rushAfterimages_{};
 	KamataEngine::ObjectColor rushBoxColor_;
@@ -294,11 +297,11 @@ private:
 	size_t nextRushAfterimage_ = 0;
 
 	// 加速度
-	static inline const float kAcceleration = 0.01f;
+	static inline const float kAcceleration = 0.04f;
 	// 速度減衰率
 	static inline const float kAttenuation = 0.1f;
 	// 速度制限値
-	static inline const float kLimitRunSpeed = 0.1f;
+	static inline const float kLimitRunSpeed = 0.16f;
 
 	// 着地時の速度減衰率
 	static inline const float kAttenuationLanding = 0.01f;

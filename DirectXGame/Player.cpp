@@ -772,16 +772,19 @@ void Player::CheckMapCollision(CollisionMapInfo& info)
 		}
 		return true;
 	};
+
 	auto isHorizontalSweepClear = [&](float centerX, float centerY, float moveX) {
 		return isSweptAreaClear((std::min)(centerX, centerX + moveX) - halfWidth,
 			(std::max)(centerX, centerX + moveX) + halfWidth,
 			centerY - halfHeight, centerY + halfHeight);
 	};
+
 	auto isVerticalSweepClear = [&](float centerX, float centerY, float moveY) {
 		return isSweptAreaClear(centerX - halfWidth, centerX + halfWidth,
 			(std::min)(centerY, centerY + moveY) - halfHeight,
 			(std::max)(centerY, centerY + moveY) + halfHeight);
 	};
+
 	const float startX = worldTransform_.translation_.x;
 	const float startY = worldTransform_.translation_.y;
 	float cornerCorrectionY = 0.0f;
@@ -809,6 +812,7 @@ void Player::CheckMapCollision(CollisionMapInfo& info)
 			}
 		}
 	}
+
 	const float collisionY = startY + cornerCorrectionY;
 
 	// X 軸方向の衝突を先に解決する。

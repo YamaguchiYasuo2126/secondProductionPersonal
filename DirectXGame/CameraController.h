@@ -23,7 +23,7 @@ public:
 	Player* target_ = nullptr;
 
 	// 追従対象とカメラの座標の差 (オフセット)
-	KamataEngine::Vector3 targetOffset_ = {0.0f, 0.0f, -15.0f};
+	KamataEngine::Vector3 targetOffset_ = {0.0f, 20.0f, -15.0f};
 
 	// カメラの目標座標
 	KamataEngine::Vector3 targetCoordinate_;
@@ -56,7 +56,8 @@ public:
 	void SetMovableArea(Rect area) { movableArea_ = area; }
 
 	// カメラのX座標を固定するためのセッター
-	void SetFixedCameraX(bool enabled, float x = 0.0f) {
+	void SetFixedCameraX(bool enabled, float x = 0.0f)
+	{
 		isFixedCameraX_ = enabled;
 		fixedCameraX_ = x;
 	}
