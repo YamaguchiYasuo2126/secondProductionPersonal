@@ -1,0 +1,14 @@
+{
+  "columns": 2,
+  "image": "topdown-tiles.png",
+  "imageheight": 32,
+  "imagewidth": 64,
+  "margin": 0,
+  "name": "TopDownBlocks",
+  "spacing": 0,
+  "tilecount": 2,
+  "tileheight": 32,
+  "tilewidth": 32,
+  "type": "tileset",
+  "version": "1.10"
+}
