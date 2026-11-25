@@ -163,36 +163,11 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseEffect.cpp" />
-    <ClCompile Include="RushAimScreenEffect.cpp" />
-    <ClCompile Include="BaseGimmick.cpp" />
-    <ClCompile Include="BaseEnemy.cpp" />
-    <ClCompile Include="CameraController.cpp" />
-    <ClCompile Include="TopDownScene.cpp" />
-    <ClCompile Include="CheckpointGate.cpp" />
-    <ClCompile Include="CheckpointTrigger.cpp" />
-    <ClCompile Include="ClearScene.cpp" />
-    <ClCompile Include="DeathParticles.cpp" />
-    <ClCompile Include="EasingUtility.cpp" />
-    <ClCompile Include="StageManager.cpp" />
-    <ClCompile Include="StageGimmick.cpp" />
-    <ClCompile Include="SoundManager.cpp" />
-    <ClCompile Include="WalkEnemy.cpp" />
-    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GuardEffect.cpp" />
-    <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapChipField.cpp" />
-    <ClCompile Include="TiledRoom.cpp" />
-    <ClCompile Include="TriangleTraceGimmick.cpp" />
     <ClCompile Include="MyMathUtility.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ShieldEnemy.cpp" />
-    <ClCompile Include="FlyingEnemy.cpp" />
-    <ClCompile Include="Skydome.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="WorldMatrix.cpp" />
+    <ClCompile Include="TopDownMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\TerrainPS.hlsl">
@@ -295,44 +270,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Sprite.hlsli" />
+    <None Include="Resources\maps\topdown_room.txt" />
+    <None Include="Resources\maps\rooms\topdown_room.tmj" />
+    <None Include="Resources\maps\tilesets\topdown.tsj" />
+    <None Include="Resources\maps\tilesets\topdown-tiles.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AABB.h" />
-    <ClInclude Include="RushAimScreenEffect.h" />
-    <ClInclude Include="BaseEffect.h" />
-    <ClInclude Include="BaseGimmick.h" />
-    <ClInclude Include="BaseEnemy.h" />
-    <ClInclude Include="CameraController.h" />
-    <ClInclude Include="TopDownScene.h" />
-    <ClInclude Include="CheckpointGate.h" />
-    <ClInclude Include="CheckpointTrigger.h" />
-    <ClInclude Include="ClearScene.h" />
-    <ClInclude Include="DeathParticles.h" />
-    <ClInclude Include="EasingUtility.h" />
-    <ClInclude Include="OBB.h" />
-    <ClInclude Include="StageManager.h" />
-    <ClInclude Include="SoundManager.h" />
-    <ClInclude Include="StageGimmick.h" />
-    <ClInclude Include="WalkEnemy.h" />
-    <ClInclude Include="Fade.h" />
-    <ClInclude Include="GamePadInput.h" />
-    <ClInclude Include="GameTime.h" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GuardEffect.h" />
-    <ClInclude Include="HitEffect.h" />
-    <ClInclude Include="MapChipField.h" />
-    <ClInclude Include="TiledRoom.h" />
-    <ClInclude Include="SwitchLinkState.h" />
-    <ClInclude Include="TriangleTraceGimmick.h" />
-    <ClInclude Include="WorldProgress.h" />
-    <ClInclude Include="ThirdParty\nlohmann\json.hpp" />
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="MyMathUtility.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="ShieldEnemy.h" />
-    <ClInclude Include="FlyingEnemy.h" />
-    <ClInclude Include="Skydome.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="WorldMatrix.h" />
+    <ClInclude Include="TopDownMap.h" />
+    <ClInclude Include="ThirdParty\nlohmann\json.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

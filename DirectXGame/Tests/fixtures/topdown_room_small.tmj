@@ -1,0 +1,33 @@
+{
+  "height": 5,
+  "infinite": false,
+  "layers": [
+    {
+      "data": [1,1,1,1,1, 1,1,1,1,1, 1,1,1,0,1, 1,1,1,1,1, 1,1,1,1,1],
+      "height": 5,
+      "name": "Floor",
+      "type": "tilelayer",
+      "width": 5,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "data": [0,0,0,0,0, 0,0,0,0,0, 0,2,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+      "height": 5,
+      "name": "CollisionSolid",
+      "type": "tilelayer",
+      "width": 5,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "name": "Spawns",
+      "objects": [{"point": true, "class": "PlayerSpawn", "x": 112, "y": 48}],
+      "type": "objectgroup"
+    }
+  ],
+  "orientation": "orthogonal",
+  "tileheight": 32,
+  "tilewidth": 32,
+  "width": 5
+}

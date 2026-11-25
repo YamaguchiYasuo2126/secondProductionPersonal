@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64"><Configuration>Debug</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Develop|x64"><Configuration>Develop</Configuration><Platform>x64</Platform></ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64"><Configuration>Release</Configuration><Platform>x64</Platform></ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{BFE887D8-5465-4607-98FC-BAB715CB9AD0}</ProjectGuid>
+    <RootNamespace>LegacyGameCode</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <OutDir>$(ProjectDir)..\..\Generated\Outputs\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\Generated\Obj\LegacyGameCode\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..;$(ProjectDir)..\..\External\DirectXTex\include;$(ProjectDir)..\..\External\imgui;$(ProjectDir)..\..\External\KamataEngine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile><PreprocessorDefinitions>_DEBUG;USE_IMGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions></ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Develop|x64'">
+    <ClCompile><PreprocessorDefinitions>USE_IMGUI;%(PreprocessorDefinitions)</PreprocessorDefinitions><RuntimeLibrary>MultiThreaded</RuntimeLibrary></ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile><PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions><RuntimeLibrary>MultiThreaded</RuntimeLibrary></ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BaseEffect.cpp" />
+    <ClCompile Include="BaseEnemy.cpp" />
+    <ClCompile Include="BaseGimmick.cpp" />
+    <ClCompile Include="CameraController.cpp" />
+    <ClCompile Include="CheckpointGate.cpp" />
+    <ClCompile Include="CheckpointTrigger.cpp" />
+    <ClCompile Include="ClearScene.cpp" />
+    <ClCompile Include="DeathParticles.cpp" />
+    <ClCompile Include="EasingUtility.cpp" />
+    <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="FlyingEnemy.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="GuardEffect.cpp" />
+    <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapChipField.cpp" />
+    <ClCompile Include="MyMathUtility.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RushAimScreenEffect.cpp" />
+    <ClCompile Include="ShieldEnemy.cpp" />
+    <ClCompile Include="Skydome.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StageGimmick.cpp" />
+    <ClCompile Include="StageManager.cpp" />
+    <ClCompile Include="TiledRoom.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TopDownScene.cpp" />
+    <ClCompile Include="TriangleTraceGimmick.cpp" />
+    <ClCompile Include="WalkEnemy.cpp" />
+    <ClCompile Include="WorldMatrix.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AABB.h" />
+    <ClInclude Include="BaseEffect.h" />
+    <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="BaseGimmick.h" />
+    <ClInclude Include="CameraController.h" />
+    <ClInclude Include="CheckpointGate.h" />
+    <ClInclude Include="CheckpointTrigger.h" />
+    <ClInclude Include="ClearScene.h" />
+    <ClInclude Include="DeathParticles.h" />
+    <ClInclude Include="EasingUtility.h" />
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="FlyingEnemy.h" />
+    <ClInclude Include="GamePadInput.h" />
+    <ClInclude Include="GameScene.h" />
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="GuardEffect.h" />
+    <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="MapChipField.h" />
+    <ClInclude Include="MyMathUtility.h" />
+    <ClInclude Include="OBB.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="RushAimScreenEffect.h" />
+    <ClInclude Include="ShieldEnemy.h" />
+    <ClInclude Include="Skydome.h" />
+    <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StageGimmick.h" />
+    <ClInclude Include="StageManager.h" />
+    <ClInclude Include="SwitchLinkState.h" />
+    <ClInclude Include="TiledRoom.h" />
+    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TopDownScene.h" />
+    <ClInclude Include="TriangleTraceGimmick.h" />
+    <ClInclude Include="WalkEnemy.h" />
+    <ClInclude Include="WorldMatrix.h" />
+    <ClInclude Include="WorldProgress.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
